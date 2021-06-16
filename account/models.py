@@ -46,12 +46,12 @@ class UserManger(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
-
+   
 
 class User(AbstractUser):
     first_name = models.CharField(max_length=100,blank=True)
     last_name = models.CharField(max_length=100,blank=True)
-    username = models.CharField(max_length=256)
+    username = models.CharField(max_length=256, unique=True)
     email = models.EmailField(max_length=256)
     phone = models.IntegerField(blank=True)
     role = models.IntegerField(
@@ -59,4 +59,6 @@ class User(AbstractUser):
     date_of_birth = models.DateField(blank=True, null=True)
 
 
+
+    objects = UserManger()
 
